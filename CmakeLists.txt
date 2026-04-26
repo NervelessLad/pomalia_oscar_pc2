@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.10)
+project(AllOne_PC2)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# Definimos la libreria core
+add_library(allone_lib src/AllOne.cpp)
+target_include_directories(allone_lib PUBLIC include)
