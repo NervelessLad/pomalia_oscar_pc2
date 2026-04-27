@@ -5,7 +5,6 @@
 #include <unordered_set>
 #include <unordered_map>
 
-// Representación de nuestro nodo para la lista doblemente enlazada
 struct Bucket {
     int freq;
     std::unordered_set<std::string> keys;
@@ -20,6 +19,10 @@ private:
     Bucket* head; 
     Bucket* tail; 
     std::unordered_map<std::string, Bucket*> map;
+
+    // Helpers para no marearnos con los punteros de la lista doble
+    void addBucketAfter(Bucket* newBucket, Bucket* prevBucket);
+    void removeBucket(Bucket* bucket);
 
 public:
     AllOne();
