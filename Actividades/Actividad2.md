@@ -4,7 +4,7 @@
 - Oscar Alberto Pomalia Suyo
 - Brian Jair La Torre Urbina
 
-#### Bloque 1 - Núcleo conceptual de la semana
+#### Bloque 1 
 
 1. **Memoria contigua:** Significa que los elementos de la estructura están almacenados en posiciones de memoria físicamente adyacentes, una tras otra. Esto permite que el hardware acceda de forma extremadamente rápida a los datos.
 2. **Acceso A[i] en O(1):** Debido a la contigüidad, la dirección de cualquier elemento se calcula con una fórmula aritmética simple: `dirección = base + (i * tamaño_del_tipo)`. Al ser un cálculo directo, el tiempo es constante independientemente de `i`.
@@ -17,7 +17,7 @@
 9. **Bloques 1, 2, 3...:** Esta progresión permite que el desperdicio de espacio sea solo de $O(\sqrt{n})$, ya que el último bloque es el único que puede estar parcialmente vacío.
 10. **Tríada Representación-Costo-Espacio:** La representación contigua favorece el tiempo de acceso ($O(1)$) a cambio de un costo de redimensionamiento que debe amortizarse y un desperdicio espacial que estructuras como `Rootish` intentan minimizar.
 
-#### Bloque 2 - Demostración y trazado guiado
+#### Bloque 2
 
 | Archivo | Salida u observable importante | Idea estructural | Argumento de costo o espacio |
 | :--- | :--- | :--- | :--- |
@@ -31,34 +31,34 @@
 - **demo_rootisharraystack_explicado.cpp:** Es la mejor para explicar cómo un índice lógico se traduce a una ubicación física en bloques.
 - **Amortización vs Espacio:** `demo_deng_vector.cpp` es ideal para defender la amortización (por el crecimiento exponencial), mientras que `demo_rootisharraystack.cpp` defiende mejor el uso eficiente del espacio.
 
-#### Bloque 3 - Pruebas públicas, stress y correctitud
+#### Bloque 3 
 
 1. **Operaciones mínimas:** Valida `get(i)`, `set(i, x)`, `add(i, x)` y `remove(i)` bajo condiciones normales de uso.
 2. **Prueba pública:** Demuestra que la estructura cumple con su contrato básico de funcionalidad y correctitud observable para el usuario.
 3. **Lo que NO demuestra:** No garantiza que la complejidad asintótica sea la correcta (podrías tener un $O(n)$ en lugar de un $O(1)$ y pasar el test si el $n$ es pequeño) ni detecta fugas de memoria sutiles.
 4. **resize_stress_week2.cpp:** Evalúa la estabilidad de la estructura ante ráfagas masivas de inserciones y eliminaciones que fuerzan múltiples redimensionamientos.
 
-#### Bloque 4 - Vector como puente entre teoría y código
+#### Bloque 4 
 
 1. **_size, _capacity, _elem:** `_elem` es el puntero al bloque de datos, `_size` es la cantidad de datos válidos y `_capacity` el tamaño total disponible.
 2. **expand():** Debe ejecutarse siempre que `_size == _capacity` antes de intentar insertar un nuevo elemento.
 3. **Copia profunda:** Se evidencia en la demo cuando se asigna un vector a otro y ambos mantienen estados independientes tras modificaciones.
 4. **Traverse():** Permite aplicar una operación a todos los elementos, facilitando la validación y el procesamiento uniforme.
 
-#### Bloque 5 - RootishArrayStack: espacio y mapeo
+#### Bloque 5 
 
 1. **Bloques:** Los elementos se reparten en bloques donde el bloque $k$ tiene capacidad para $k+1$ elementos.
 2. **Capacidad total:** Sigue la suma de una progresión aritmética (Gauss), resultando en $r(r+1)/2$ para $r$ bloques.
 3. **i2b(i):** Resuelve la ecuación cuadrática para encontrar el índice del bloque correspondiente a un índice lógico `i` en tiempo $O(1)$.
 4. **Espacio:** Se gana eficiencia frente a `ArrayStack` porque el espacio desperdiciado nunca supera el tamaño del último bloque, es decir, $O(\sqrt{n})$.
 
-#### Bloque 6 - Refuerzo de lectura
+#### Bloque 6 
 
 1. **operator[]:** Aporta la interfaz intuitiva de arreglo, permitiendo que el vector se use sintácticamente igual que un arreglo nativo.
 2. **find(e):** Supone que los elementos soportan el operador de igualdad (`==`) para realizar la búsqueda secuencial.
 3. **Traverse():** Muestra cómo desacoplar la lógica de recorrido de la lógica de procesamiento de los datos.
 
-#### Bloque 7 - Cierre comparativo
+#### Bloque 7
 
 Pasar de "usar un arreglo" a "diseñar una estructura dinámica" implica un cambio radical en la **representación**: dejamos de manejar memoria estática para gestionar un puntero a memoria dinámica en el heap que debe redimensionarse. La **correctitud** se garantiza encapsulando la lógica de `resize()`, la cual, aunque costosa individualmente ($O(n)$), se justifica mediante un **costo amortizado** $O(1)$ al duplicar la capacidad.
 
