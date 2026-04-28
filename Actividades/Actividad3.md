@@ -41,6 +41,7 @@
 6. Guardar la información del mínimo en cada nodo gasta el doble de espacio, pero aplana el tiempo de búsqueda a $O(1)$.
 7. `LinkedStack` encapsulando a `SLList` demuestra perfectamente cómo ocultar métodos complejos y exponer solo `push` y `pop`.
 8. El arreglo contiguo es drásticamente más rápido en acceso secuencial puro gracias a la localidad de memoria (caché).
+
 #### Bloque 3
 
 1. Para SLList el test público valida estas operaciones mínimas:
