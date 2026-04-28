@@ -18,34 +18,29 @@
 9. Porque simplifica la implementación, aprovechando la eficiencia de arreglos para acceso y la flexibilidad de deques para actualizaciones.
 10. No reemplaza a las estructuras de Morin (SLList, DLList, SEList) porque estas se centran en representaciones específicas con costos optimizados para operaciones básicas (e.g., DLList para acceso bidireccional eficiente, SEList para trade-off espacio-acceso). DengList es complementaria: se usa vía MorinDengBridge para aplicar algoritmos genéricos sin reescribir lógica estructural, permitiendo reutilización pero manteniendo las ventajas de cada representación. Es una separación de concerns entre estructura y algoritmos.
  
-#### Bloque 2
+#### Bloque 2 - Demostración y trazado guiado
 
-1. add(10) y add(20) se comportan como cola (enqueue al final). push(5) se comporta como pila (inserta al frente). pop() elimina el primer elemento, como una pila o una cola con acceso al frente. remove() también quita del frente, mostrando que la lista usa head para desencolar.
-2. La operación que mejor muestra la inserción en posición intermedia es:
+| Archivo | Salida u observable importante | Idea estructural | Argumento de costo, espacio o diseño |
+| :--- | :--- | :--- | :--- |
+| `demo_sllist.cpp` | Push y pop afectan el mismo extremo. | Punteros simples (`head`, `tail`). | $O(1)$ en extremos, ideal para Stack/Queue. |
+| `demo_dllist.cpp` | Inserción intermedia fluida. | Centinela + Doble enlace. | Optimización de recorrido a $O(n/2)$. |
+| `demo_selist.cpp` | Impresión agrupada por bloques limitados. | Nodos con arreglos internos (BDeque). | Trade-off: menos punteros, mejor caché. |
+| `demo_deng_list.cpp` | Lista ordenada y sin repetidos. | ADT enriquecido. | Esconder complejidad algorítmica en la API. |
+| `demo_morin_deng_bridge.cpp` | SLList ordenada sin tener `sort()`. | Patrón Adaptador/Puente. | Reutilización sin reescribir lógica base. |
+| `demo_min_structures.cpp` | Responde `min()` al instante tras un pop. | Nodos con metadatos de estado. | Espacio extra a cambio de búsquedas en $O(1)$. |
+| `demo_xor_list.cpp` | Recorrido bidireccional. | Aritmética XOR con punteros. | Hack espacial para simular DLList con 1 puntero. |
+| `demo_linked_adapters.cpp` | Nombres semánticos (`push`, `enqueue`). | Composición de clases. | Reusabilidad directa de SLList. |
+| `demo_contiguous_vs_linked.cpp` | Tiempos de iteración secuencial vs aleatoria. | Caché de CPU vs Heap fragmentado. | Arreglos ganan en barridos por el pre-fetching. |
 
-d.add(1, 20);
-
-Porque inserta 20 entre 10 y 30, dejando la lista como 10 20 30. Eso es exactamente un ejemplo de inserción en el medio.
-3. El observable es la salida del for que recorre s.size() y hace s.get(i) en orden. Aunque SEList internamente usa bloques, el demo imprime los valores en secuencia lógica 0 10 20 ... 90. Eso muestra que la vista externa conserva el orden lineal esperado.
-4. lista.push_back(30) / push_back(10) / push_back(20) muestra inserciones al final. 
-lista.push_front(5) muestra inserción al frente.
-lista.front() y lista.back() muestran acceso a ambos extremos.
-lista.sort() muestra una operación algorítmica de lista más rica que no está en SLList/DLList básico.
-lista.to_vector() muestra que la lista tiene una interfaz completa para obtener su contenido en orden.
-5. cc232::stable_sort_with_deng(lista);
-int removed = cc232::dedup_with_deng(lista);
-luego imprime DLList reforzada con Deng: ... y Removido = ...
-Eso justifica la reutilización porque la salida muestra que la DLList original fue ordenada y deduplicada usando operaciones de Deng sin cambiar la implementación base de DLList. La estructura sigue siendo DLList, pero el puente aplica algoritmos de DengList para producir la lista ordenada y depurada.
-6. No basta con guardar los valores; las estructuras “min” guardan metadatos extra para poder responder min() en tiempo constante.
-7. El mejor adaptador es LinkedStack.
-
-LinkedStack reutiliza directamente SLList como almacenamiento interno.
-Ofrece una interfaz nueva de pila (push, pop, top) sobre una lista simple.
-El demo muestra claramente que la misma estructura base puede dar la semántica de un stack sin reimplementar nodos.
-8. Acceso por índice: ArrayDeque.get(4) y DLList.get(4) devuelven el mismo valor, pero la representación contigua es la que realmente explota el acceso por índice de forma natural y con mejor locality.
-Inserción local: la salida y el código contrastan que la representación enlazada (LinkedQueue / LinkedDeque / DLList) es la que “facilita inserciones/borrados locales”.
-Localidad de memoria: el demo dice explícitamente que la representación contigua ofrece mejor localidad de memoria, lo que es una ventaja frente a la lista enlazada.
-
+**Respuestas de trazado:**
+1. En `demo_sllist.cpp`, la secuencia de `push` y `pop` (que actúan en el mismo extremo) frente a `add` y `remove` que simulan colas.
+2. La operación de inserción en medio (`add(i, x)`), porque no pierde la cadena de enlaces al abrir espacio.
+3. Que el orden lógico de los elementos se mantiene intacto independientemente de cómo se partan internamente los bloques de la SEList.
+4. La ejecución directa de funciones típicas de la STL como `sort()` o `unique()` que no existen en Morin.
+5. El puente permite extraer datos, ordenarlos externamente con Deng y reinyectarlos sin tocar el archivo `.h` original de Morin.
+6. Guardar la información del mínimo en cada nodo gasta el doble de espacio, pero aplana el tiempo de búsqueda a $O(1)$.
+7. `LinkedStack` encapsulando a `SLList` demuestra perfectamente cómo ocultar métodos complejos y exponer solo `push` y `pop`.
+8. El arreglo contiguo es drásticamente más rápido en acceso secuencial puro gracias a la localidad de memoria (caché).
 #### Bloque 3
 
 1. Para SLList el test público valida estas operaciones mínimas:
