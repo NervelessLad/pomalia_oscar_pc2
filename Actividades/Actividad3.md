@@ -18,7 +18,7 @@
 9. Porque simplifica la implementación, aprovechando la eficiencia de arreglos para acceso y la flexibilidad de deques para actualizaciones.
 10. No reemplaza a las estructuras de Morin (SLList, DLList, SEList) porque estas se centran en representaciones específicas con costos optimizados para operaciones básicas (e.g., DLList para acceso bidireccional eficiente, SEList para trade-off espacio-acceso). DengList es complementaria: se usa vía MorinDengBridge para aplicar algoritmos genéricos sin reescribir lógica estructural, permitiendo reutilización pero manteniendo las ventajas de cada representación. Es una separación de concerns entre estructura y algoritmos.
  
-#### Bloque 2 - Demostración y trazado guiado
+#### Bloque 2 
 
 | Archivo | Salida u observable importante | Idea estructural | Argumento de costo, espacio o diseño |
 | :--- | :--- | :--- | :--- |
