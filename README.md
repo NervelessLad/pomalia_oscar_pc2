@@ -11,18 +11,19 @@
   https://github.com/kapumota/CC-232/blob/main/Practicas/Practica2_CC232/Problemas-Evaluacion2.csv
 
 ### Tema principal
-- Semana:
-- Estructura o técnica principal:
+- Semana: Semana 3
+- Estructura o técnica principal: Memoria Enlazada, Lista Doblemente Enlazada (DLList) con Nodos Centinela (Dummy) combinada con HashMap.
 
 ### Resumen de la solución
-Explica brevemente la idea principal de la solución.
+La solución implementa una estructura compuesta. Un HashMap (`std::unordered_map`) permite ubicar cualquier llave en O(1). Las llaves se agrupan por frecuencia dentro de "Buckets" (nodos de una lista doblemente enlazada). Al incrementar o decrementar una llave, esta se mueve de su Bucket actual al adyacente (creando o destruyendo Buckets dinámicamente si es necesario). Esto permite que el Bucket con la menor frecuencia siempre esté justo después del nodo `head`, y el Bucket con la mayor frecuencia justo antes del nodo `tail`, garantizando respuestas en O(1).
 
 ### Complejidad
-- Tiempo:
-- Espacio:
+- Tiempo: O(1) estricto para las 4 operaciones (`inc`, `dec`, `getMaxKey`, `getMinKey`).
+- Espacio: O(N) donde N es el número de llaves únicas insertadas, almacenadas tanto en la Tabla Hash como en los conjuntos internos de cada Bucket.
 
 ### Invariante o idea clave
-Describe el invariante o propiedad que se mantiene.
+- La Lista Doblemente Enlazada siempre se mantiene estrictamente ordenada de menor a mayor frecuencia.
+- No existen Buckets vacíos en la lista (salvo los nodos centinela `head` y `tail`). Si un Bucket se queda sin llaves, se elimina inmediatamente y los punteros de sus vecinos se relinkean.
 
 ### Archivos relevantes
 - include/
@@ -37,8 +38,7 @@ cmake --build build
 ```
 
 ### Ejecución
-```bash
-./build/tu_programa
+```./build/tests
 ```
 
 ### Casos de prueba
