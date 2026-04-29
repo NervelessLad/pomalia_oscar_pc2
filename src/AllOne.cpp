@@ -81,6 +81,20 @@ void AllOne::dec(std::string key) {
     }
 }
 
-// TODO para mañana: implementar las busquedas de extremos
-std::string AllOne::getMaxKey() { return ""; }
-std::string AllOne::getMinKey() { return ""; }
+std::string AllOne::getMaxKey() {
+    // Si el anterior al tail es el head, significa que la lista esta vacia
+    if (tail->prev == head) {
+        return "";
+    }
+    // El maximo SIEMPRE es el ultimo bucket antes del tail
+    return *(tail->prev->keys.begin());
+}
+
+std::string AllOne::getMinKey() {
+    // Si el siguiente al head es el tail, esta vacia
+    if (head->next == tail) {
+        return "";
+    }
+    // El minimo SIEMPRE es el primer bucket despues del head
+    return *(head->next->keys.begin());
+}
