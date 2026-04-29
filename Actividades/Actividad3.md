@@ -164,7 +164,7 @@ verificación del tamaño lógico final: assert(s.size() == 350)
 
 #### Bloque 8 
 
-Pasar de arreglos a estructuras enlazadas es cambiar velocidad de acceso por flexibilidad. En los arreglos el acceso es instantáneo ($O(1)$) pero mover datos es costoso. En las listas enlazadas (`SLList`, `DLList`), el acceso es lento ($O(n)$) pero las inserciones son quirúrgicas y baratas. La `SEList` es el punto medio que intenta darnos lo mejor de ambos mundos. Los adaptadores cierran el círculo permitiendo que estas estructuras complejas se comporten como herramientas simples (Pilas/Colas) para resolver problemas reales.
+Pasar de arreglos a estructuras enlazadas es cambiar velocidad de acceso por flexibilidad. En los arreglos el acceso es instantáneo (O(1)) pero mover datos es costoso. En las listas enlazadas (`SLList`, `DLList`), el acceso es lento (O(n)) pero las inserciones son quirúrgicas y baratas. La `SEList` es el punto medio que intenta darnos lo mejor de ambos mundos. Los adaptadores cierran el círculo permitiendo que estas estructuras complejas se comporten como herramientas simples (Pilas/Colas) para resolver problemas reales.
 
 #### Autoevaluación breve
 

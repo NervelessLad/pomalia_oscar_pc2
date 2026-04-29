@@ -10,12 +10,12 @@
 2. **Acceso A[i] en O(1):** Debido a la contigüidad, la dirección de cualquier elemento se calcula con una fórmula aritmética simple: `dirección = base + (i * tamaño_del_tipo)`. Al ser un cálculo directo, el tiempo es constante independientemente de `i`.
 3. **Size vs Capacity:** `size` representa la cantidad de elementos reales almacenados actualmente, mientras que `capacity` es el tamaño total del bloque de memoria reservado en el heap.
 4. **Resize() y reserva nueva:** Los arreglos no pueden crecer "en el mismo sitio" porque la memoria adyacente podría estar ocupada por otros datos. Por ello, se debe reservar un bloque nuevo de mayor tamaño, copiar los elementos y liberar el bloque antiguo.
-5. **Costo amortizado O(1):** Al duplicar la capacidad, la operación costosa de copiado ($O(n)$) ocurre con poca frecuencia. Si repartimos ese costo total entre todas las inserciones que lo precedieron, el promedio por operación resulta ser constante ($O(1)$).
+5. **Costo amortizado O(1):** Al duplicar la capacidad, la operación costosa de copiado (O(n)) ocurre con poca frecuencia. Si repartimos ese costo total entre todas las inserciones que lo precedieron, el promedio por operación resulta ser constante (O(1)).
 6. **ArrayStack y DengVector:** Comparten la representación base de un arreglo dinámico. `ArrayStack` (Morin) se enfoca en la lógica algorítmica simplificada, mientras que `DengVector` (Deng) enfatiza la implementación robusta tipo C++ con manejo de memoria y interfaces más completas.
 7. **Mejora de FastArrayStack:** Optimiza el rendimiento mediante el uso de funciones de bajo nivel como `std::copy` o `memmove`, que mueven bloques de memoria a nivel de hardware más rápido que un bucle `for` manual.
 8. **Idea de RootishArrayStack:** Su objetivo es reducir el desperdicio de espacio (memoria no utilizada) manteniendo la interfaz de lista, utilizando una serie de bloques en lugar de un solo arreglo masivo.
 9. **Bloques 1, 2, 3...:** Esta progresión permite que el desperdicio de espacio sea solo de $O(\sqrt{n})$, ya que el último bloque es el único que puede estar parcialmente vacío.
-10. **Tríada Representación-Costo-Espacio:** La representación contigua favorece el tiempo de acceso ($O(1)$) a cambio de un costo de redimensionamiento que debe amortizarse y un desperdicio espacial que estructuras como `Rootish` intentan minimizar.
+10. **Tríada Representación-Costo-Espacio:** La representación contigua favorece el tiempo de acceso (O(1)) a cambio de un costo de redimensionamiento que debe amortizarse y un desperdicio espacial que estructuras como `Rootish` intentan minimizar.
 
 #### Bloque 2
 
@@ -60,7 +60,7 @@
 
 #### Bloque 7
 
-Pasar de "usar un arreglo" a "diseñar una estructura dinámica" implica un cambio radical en la **representación**: dejamos de manejar memoria estática para gestionar un puntero a memoria dinámica en el heap que debe redimensionarse. La **correctitud** se garantiza encapsulando la lógica de `resize()`, la cual, aunque costosa individualmente ($O(n)$), se justifica mediante un **costo amortizado** $O(1)$ al duplicar la capacidad.
+Pasar de "usar un arreglo" a "diseñar una estructura dinámica" implica un cambio radical en la **representación**: dejamos de manejar memoria estática para gestionar un puntero a memoria dinámica en el heap que debe redimensionarse. La **correctitud** se garantiza encapsulando la lógica de `resize()`, la cual, aunque costosa individualmente (O(n)), se justifica mediante un **costo amortizado** $O(1)$ al duplicar la capacidad.
 
 En términos de **uso de espacio**, estructuras como `ArrayStack` y `FastArrayStack` aceptan un desperdicio de hasta $O(n)$ para ganar velocidad. En contraste, `RootishArrayStack` utiliza un mapeo matemático de bloques para reducir ese desperdicio a $O(\sqrt{n})$. Mientras `FastArrayStack` mejora el rendimiento práctico mediante operaciones de memoria en bloque, `RootishArrayStack` ofrece el mejor balance teórico entre acceso rápido y eficiencia espacial.
 
