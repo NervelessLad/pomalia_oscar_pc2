@@ -32,6 +32,7 @@ public:
     void dec(std::string key);
     std::string getMaxKey();
     std::string getMinKey();
+    void printBuckets();
 };
 
 #endif

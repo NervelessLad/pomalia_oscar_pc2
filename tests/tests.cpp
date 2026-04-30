@@ -38,5 +38,13 @@ void runTests() {
 
 int main() {
     runTests();
+    std::cout<<"Reto del video: ";
+    AllOne reto;
+    reto.inc("PC2");
+    reto.inc("PC2");
+    reto.inc("Aprobado");
+    reto.printBuckets();
+
+
     return 0;
 }

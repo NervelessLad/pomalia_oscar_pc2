@@ -1,5 +1,5 @@
 #include "AllOne.h"
-
+#include <iostream>
 AllOne::AllOne() {
     head = new Bucket(0);
     tail = new Bucket(0);
@@ -97,4 +97,16 @@ std::string AllOne::getMinKey() {
     }
     // El minimo SIEMPRE es el primer bucket despues del head
     return *(head->next->keys.begin());
+}
+
+void AllOne::printBuckets(){
+    std::cout << "\n Estado de Buckets \n";
+    Bucket* curr = head->next;
+    while(curr!= tail) {
+        std::cout<<"Freq "<< curr->freq << " -> {";
+        for(const std::string& k : curr->keys) std::cout<<k<< " ";
+        std::cout<< "}\n";
+        curr = curr->next;
+    }
+    std::cout<< "-----------\n";
 }
