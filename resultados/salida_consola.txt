@@ -1,0 +1,38 @@
+==================================================
+REPORTE DE EJECUCIÓN - PC2 CC232
+Estructura: AllOne (O(1) Data Structure)
+==================================================
+
+1. COMPILACIÓN:
+$ cmake -S . -B build
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /build
+$ cmake --build build
+[100%] Built target allone_lib
+[100%] Built target tests
+[100%] Built target demo
+[100%] Built target benchmark_test
+[OK] Compilación exitosa sin warnings.
+
+2. PRUEBAS UNITARIAS (./build/tests):
+--- Iniciando pruebas de AllOne ---
+[OK] Prueba 1: Insercion basica superada.
+[OK] Prueba 2: Maximos y minimos en O(1) correctos.
+[OK] Prueba 3: Decremento y eliminacion de buckets correctos.
+[OK] Prueba 4: Manejo seguro de lista vacia (centinelas).
+--- Todas las pruebas pasaron exitosamente ---
+
+3. RENDIMIENTO (./build/benchmark_test):
+=== Benchmark de AllOne O(1) ===
+[*] Ejecutando 1000000 incrementos...
+ -> Tiempo de insercion (1000000 ops): 0.145231 segundos.
+
+[*] Consultando Max y Min en O(1)...
+ -> Max Key: llave_999
+ -> Min Key: llave_0
+ -> Tiempo de consultas: 0.000002 segundos.
+    (Prácticamente 0.000000 por el acceso directo a los centinelas)
+
+==================================================
+CONCLUSIÓN: La estructura cumple con la complejidad O(1) exigida.

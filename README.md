@@ -26,10 +26,13 @@ La solución implementa una estructura compuesta. Un HashMap (`std::unordered_ma
 - No existen Buckets vacíos en la lista (salvo los nodos centinela `head` y `tail`). Si un Bucket se queda sin llaves, se elimina inmediatamente y los punteros de sus vecinos se relinkean.
 
 ### Archivos relevantes
-- include/
-- src/
-- tests/
-- demos/
+- `include/AllOne.h` (Declaración)
+- `src/AllOne.cpp` (Implementación)
+- `tests/tests.cpp` (Pruebas unitarias con asserts)
+- `demos/demo_allone.cpp` (Demostración visual interactiva)
+- `benchmark/benchmark_allone.cpp` (Prueba de rendimiento masivo O(1))
+- `docs/arquitectura.md` (Diagrama visual y justificación teórica)
+- `resultados/salida_consola.txt` (Log de ejecución exitosa)
 
 ### Compilación
 ```bash
@@ -38,14 +41,15 @@ cmake --build build
 ```
 
 ### Ejecución
-```./build/tests
+```bash
+./build/tests
 ```
 
 ### Casos de prueba
 Describe al menos 3 casos:
-1.
-2.
-3.
+1. Inserción secuencial: Insertar "hello" dos veces y "world" una vez. Se valida que el máximo es "hello" y el mínimo es "world" accediendo a los extremos en O(1).
+2. Decremento y reajuste: Decrementar "hello" para que empate en frecuencia con "world", validando que la llave se reubica correctamente en el Bucket inicial.
+3. Lista vacía: Eliminar todas las llaves y validar que getMaxKey y getMinKey devuelven un string vacío al consultar los nodos centinelas, sin lanzar errores de memoria.
 
 ### Historial de commits
 Indica que el historial debe verse en el video.
